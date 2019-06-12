@@ -11,7 +11,7 @@ class LinePainter extends CustomPainter{
     int startValue;
     int endValue;
     final angle= 2* pi / 60;
-    
+
     LinePainter({this.lineColor,this.completeColor,this.startValue,this.endValue,this.startPercent, this.endPercent,this.width});
     @override
     void paint(Canvas canvas, Size size) {
@@ -27,6 +27,7 @@ class LinePainter extends CustomPainter{
             ..strokeWidth = width;
         Offset center  = new Offset(size.width/2, size.height/2);
         double radius  = min(size.width/2,size.height/2);
+
         canvas.drawArc(
             new Rect.fromCircle(center: center,radius: radius),
             25*angle,
@@ -34,7 +35,7 @@ class LinePainter extends CustomPainter{
             false,
             line
         );
-        
+
         canvas.drawArc(
             new Rect.fromCircle(center: center,radius: radius),
             25*angle + (40*angle)*startPercent ,

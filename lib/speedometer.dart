@@ -9,42 +9,46 @@ import 'package:speedometer/speedtextpainter.dart';
 import 'package:rxdart/rxdart.dart';
 
 class SpeedOMeter extends StatefulWidget {
-    
     int start;
     int end;
-    double highlightStart;
-    double highlightEnd;
+    int decimals;
     ThemeData themeData;
-    
+
     PublishSubject<double> eventObservable;
-    SpeedOMeter({this.start,this.end,this.highlightStart,this.highlightEnd,this.themeData, this.eventObservable}){
-        print(this.highlightEnd);
-        
-    }
-    
+    SpeedOMeter({
+      this.start,
+      this.end,
+      this.themeData,
+      this.eventObservable,
+      this.decimals,
+    });
+
     @override
-    _SpeedOMeterState createState() => new _SpeedOMeterState(this.start,this.end,this.highlightStart,this.highlightEnd,this.eventObservable);
+    _SpeedOMeterState createState() => new _SpeedOMeterState(
+      this.start,
+      this.end,
+      this.eventObservable,
+      this.decimals,
+    );
 }
 
 class _SpeedOMeterState extends State<SpeedOMeter>  with TickerProviderStateMixin{
     int start;
     int end;
-    double highlightStart;
-    double highlightEnd;
+    int decimals;
+
     PublishSubject<double> eventObservable;
-    
+
     double val = 0.0;
     double newVal;
     AnimationController percentageAnimationController;
-    
-    
-    _SpeedOMeterState(int start, int end, double highlightStart, double highlightEnd, PublishSubject<double> eventObservable) {
+
+    _SpeedOMeterState(int start, int end, PublishSubject<double> eventObservable, int decimals) {
         this.start = start;
         this.end = end;
-        this.highlightStart = highlightStart;
-        this.highlightEnd = highlightEnd;
+        this.decimals = decimals;
         this.eventObservable = eventObservable;
-        
+
         percentageAnimationController = new AnimationController(
             vsync: this,
             duration: new Duration(milliseconds: 1000)
@@ -56,13 +60,12 @@ class _SpeedOMeterState extends State<SpeedOMeter>  with TickerProviderStateMixi
             });
         this.eventObservable.listen((value) => reloadData(value));
     }
-    
+
     reloadData(double value){
-        print(value);
         newVal = value;
         percentageAnimationController.forward(from: 0.0);
     }
-    
+
     @override
     Widget build(BuildContext context) {
         return new Center(
@@ -73,7 +76,6 @@ class _SpeedOMeterState extends State<SpeedOMeter>  with TickerProviderStateMixi
                         width: constraints.maxWidth,
                         child: new Stack(
                             fit: StackFit.expand,
-                            
                             children: <Widget>[new Container(
                                 child: new CustomPaint(
                                     foregroundPainter: new LinePainter(
@@ -81,9 +83,8 @@ class _SpeedOMeterState extends State<SpeedOMeter>  with TickerProviderStateMixi
                                         completeColor: this.widget.themeData.primaryColor,
                                         startValue: this.start,
                                         endValue: this.end,
-                                        startPercent: this.widget
-                                            .highlightStart,
-                                        endPercent: this.widget.highlightEnd,
+                                        startPercent: this.start.toDouble(),
+                                        endPercent: val/end,
                                         width: 40.0
                                     )
                                 ),
@@ -118,12 +119,13 @@ class _SpeedOMeterState extends State<SpeedOMeter>  with TickerProviderStateMixi
                                     ),
                                 ),
                             ),
-                            
+
                             new CustomPaint(painter: new SpeedTextPainter(
                                 start: this.start,
                                 end: this.end,
-                                value: this.val)),
-                            
+                                value: this.val,
+                                decimals: this.decimals,
+                              )),
                             ]
                         ),
                     );
