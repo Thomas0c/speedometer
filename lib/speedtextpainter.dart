@@ -57,7 +57,7 @@ class SpeedTextPainter extends CustomPainter {
             if (i == 40 || i == 20) {
                 String label = i == 40 ? start.toString() : this.end.toString();
                 canvas.save();
-                canvas.translate(i == 40 ? -20.0 : 20.0, -radius);
+                canvas.translate(i == 40 ? -40.0 : 40.0, -radius);
 
                 textPainter.text = new TextSpan(
                     text: label,
