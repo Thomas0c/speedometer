@@ -32,10 +32,10 @@ class HandPainter extends CustomPainter{
 
         Path path= new Path();
         path.moveTo(-1.5, -radius-10.0);
-        path.lineTo(-5.0, -radius/1.8);
-        path.lineTo(-2.0, 10.0);
-        path.lineTo(2.0, 10.0);
-        path.lineTo(5.0, -radius/1.8);
+        path.lineTo(-2.0, -radius/1.8);
+        path.lineTo(-10.0, 10.0);
+        path.lineTo(10.0, 10.0);
+        path.lineTo(2.0, -radius/1.8);
         path.lineTo(1.5, -radius-10.0);
         path.close();
 
