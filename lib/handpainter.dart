@@ -33,14 +33,14 @@ class HandPainter extends CustomPainter{
         Path path= new Path();
         path.moveTo(-1.5, -radius-10.0);
         path.lineTo(-2.0, -radius/1.8);
-        path.lineTo(-10.0, 10.0);
-        path.lineTo(10.0, 10.0);
+        path.lineTo(-10.0, 0.0);
+        path.lineTo(10.0, 0.0);
         path.lineTo(2.0, -radius/1.8);
         path.lineTo(1.5, -radius-10.0);
         path.close();
 
         canvas.drawPath(path, minuteHandPaint);
-        canvas.drawShadow(path, this.color, 4.0, false);
+        canvas.drawShadow(path, this.color, 3.0, false);
 
         canvas.restore();
 
