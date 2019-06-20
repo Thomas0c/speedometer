@@ -43,6 +43,12 @@ class _SpeedOMeterState extends State<SpeedOMeter>  with TickerProviderStateMixi
     double newVal;
     AnimationController percentageAnimationController;
 
+    @override
+    void dispose() {
+      percentageAnimationController.dispose();
+      super.dispose();
+    }
+
     _SpeedOMeterState(int start, int end, PublishSubject<double> eventObservable, int decimals) {
         this.start = start;
         this.end = end;
